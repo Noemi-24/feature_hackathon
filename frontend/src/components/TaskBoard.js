@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 
@@ -6,6 +6,8 @@ function TaskBoard() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [term, setTerm] = useState("");
+  const [status, setStatus] = useState("");
 
   const loadTasks = async () => {
     try {
@@ -61,6 +63,16 @@ function TaskBoard() {
     }
   };
 
+  const filteredTasks = useMemo(() => {
+    return tasks.filter(task =>{
+      const matchesTerm = task.title.toLowerCase().includes(term.toLowerCase());
+      const matchesStatus = status === "" ? true : task.status === status;
+      return matchesTerm && matchesStatus;
+    });
+  }, [tasks, term, status]);
+ 
+
+
   if (loading) return <div className="loading">Loading tasks...</div>;
 
   return (
@@ -69,12 +81,26 @@ function TaskBoard() {
         <h1>Task Board</h1>
         <Link to="/tasks/new" className="btn btn-primary">+ New Task</Link>
       </div>
+      <div className= "task-board-controls">        
+        <input 
+          type="text" 
+          placeholder="Search tasks..." 
+          value={term}
+          onChange={(e) => setTerm(e.target.value)}
+        /> 
+        <select value={status} onChange={(e) => setStatus(e.target.value)} className="task-status-select">
+          <option value="">All Statuses</option>
+          <option value="TODO">To Do</option>
+          <option value="IN_PROGRESS">In Progress</option>
+          <option value="DONE">Done</option>
+        </select>
+      </div>
       {error && <div className="error-message">{error}</div>}
       <div className="task-list">
         {tasks.length === 0 ? (
           <div className="empty-state">No tasks yet. Create one to get started!</div>
         ) : (
-          tasks.map(task => (
+          filteredTasks.map(task => (
             <div key={task.id} className="task-card">
               <div className="task-card-header">
                 <Link to={`/tasks/${task.id}`} className="task-title">{task.title}</Link>

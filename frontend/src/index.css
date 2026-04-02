@@ -291,6 +291,36 @@ a:hover {
   border-radius: 12px;
 }
 
+input[type="text"] {
+  width: 100%;
+  padding: 10px 15px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+input[type="text"]:focus {
+  border-color: #4CAF50;
+  outline: none; /* Removes default browser blue outline */
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.task-board-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.task-status-select {
+  padding: 0.6rem 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
 /* ===================== */
 /*      Task Card        */
 /* ===================== */
