@@ -6,6 +6,7 @@ import api from '../services/api';
 function CreateTask() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [priority, setPriority] = useState('');
   const [error, setError] = useState('');
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ function CreateTask() {
       await api.post('/tasks', {
         title,
         description,
+        priority,
         createdBy: user.name,
       });
       navigate('/tasks');
@@ -49,6 +51,18 @@ function CreateTask() {
             rows="4"
             required
           />
+        </div>
+        <div className="form-group">
+          <label>Priority</label>
+          <select
+            value={priority}
+            onChange={(e) => setPriority(e.target.value)}
+            className="status-select"
+          >
+            <option value="LOW">Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
+          </select>
         </div>
         <div className="form-actions">
           <button type="submit" className="btn btn-primary">Create Task</button>

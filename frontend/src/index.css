@@ -350,6 +350,12 @@ input[type="text"]:focus {
   color: #2c3e50;
 }
 
+.task-status-priority {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
 .task-description {
   color: #7f8c8d;
   font-size: 0.9rem;
@@ -402,6 +408,28 @@ input[type="text"]:focus {
   background: #eafaf1;
   color: #27ae60;
 }
+
+/* ===================== */
+/*    Priority Badge       */
+/* ===================== */
+
+.priority-low {
+  background: #eafaf1;
+  color: #27ae60;
+}
+
+.priority-medium {
+  background: #f7f5b2;
+  color: #969306;
+}
+
+.priority-high{
+  background: #f0cfcf;
+  color: #ae2727;
+}
+
+
+
 
 /* ===================== */
 /*    Status Select      */

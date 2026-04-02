@@ -54,12 +54,30 @@ function TaskBoard() {
     }
   };
 
+  const getPriorityClass = (priority) => {
+    switch (priority) {
+      case 'LOW': return 'priority-low';
+      case 'MEDIUM': return 'priority-medium';
+      case 'HIGH': return 'priority-high';
+      default: return '';
+    }
+  };
+
   const formatStatus = (status) => {
     switch (status) {
       case 'TODO': return 'To Do';
       case 'IN_PROGRESS': return 'In Progress';
       case 'DONE': return 'Done';
       default: return status;
+    }
+  };
+
+   const formatPriority = (priority) => {
+    switch (priority) {
+      case 'LOW': return 'Low';
+      case 'MEDIUM': return 'Medium';
+      case 'HIGH': return 'High';
+      default: return priority;
     }
   };
 
@@ -104,9 +122,14 @@ function TaskBoard() {
             <div key={task.id} className="task-card">
               <div className="task-card-header">
                 <Link to={`/tasks/${task.id}`} className="task-title">{task.title}</Link>
-                <span className={`status-badge ${getStatusClass(task.status)}`}>
-                  {formatStatus(task.status)}
-                </span>
+                <div className='task-status-priority'>
+                  <span className={`status-badge ${getPriorityClass(task.priority)}`}>
+                  {formatPriority(task.priority)}
+                  </span>
+                  <span className={`status-badge ${getStatusClass(task.status)}`}>
+                    {formatStatus(task.status)}
+                  </span>
+                </div>                
               </div>
               <p className="task-description">{task.description}</p>
               <div className="task-card-footer">

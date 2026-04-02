@@ -21,6 +21,10 @@ public class Task {
     @Column(nullable = false)
     private TaskStatus status = TaskStatus.TODO;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TaskPriority priority = TaskPriority.MEDIUM;
+
     private String createdBy;
 
     private LocalDateTime createdAt;
@@ -32,6 +36,14 @@ public class Task {
         if (createdAt == null) {
             createdAt = LocalDateTime.now();
         }
+    }
+
+    public TaskPriority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(TaskPriority priority) {
+        this.priority = priority;
     }
 
     public Long getId() { return id; }
